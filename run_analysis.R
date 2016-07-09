@@ -79,7 +79,10 @@ get.labeled.data <- function(data_dir='UCI HAR Dataset') {
 
 #5
 #argument is the #4 data output
-tidy.data <- function(merged_names) {
+tidy.data <- function(merged_names=NULL, data_dir='UCI HAR Dataset') {
+  if(is.null(merged_names)) {
+    merged_names=get.labeled.data(data_dir)
+  }
   by_activity <- group_by(merged_names, activity, subject) %>%
                  summarise_each(funs(mean))
   return(by_activity)
